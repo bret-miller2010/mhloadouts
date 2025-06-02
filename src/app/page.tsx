@@ -21,12 +21,10 @@ export default function LandingPage() {
     const waistData = data.filter((piece) => piece.kind === "waist");
     const legsData = data.filter((piece) => piece.kind === "legs");
 
-    console.log(helmetData);
-
     // console.log(data);
 
     return (
-        <div className="w-3/4 h-screen flex justify-content flex-col items-center gap-5 bg-red-500 mt-20 p-2">
+        <div className="w-screen h-screen flex justify-content flex-col items-center gap-5 bg-red-500 mt-20 p-2">
             <GearSlot gearData={helmetData} />
             <GearSlot gearData={chestData} />
             <GearSlot gearData={armsData} />
