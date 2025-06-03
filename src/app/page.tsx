@@ -6,20 +6,20 @@ import { useQuery } from "@tanstack/react-query";
 import GearSlot from "./components/GearSlot";
 
 export default function LandingPage() {
-    const { data } = useQuery({
+    const { data: armorData } = useQuery({
         queryKey: ["armor"],
         queryFn: fetchAllArmor,
     });
 
-    if (!data) {
+    if (!armorData) {
         return <div>Loading...</div>;
     }
 
-    const helmetData = data.filter((piece) => piece.kind === "head");
-    const chestData = data.filter((piece) => piece.kind === "chest");
-    const armsData = data.filter((piece) => piece.kind === "arms");
-    const waistData = data.filter((piece) => piece.kind === "waist");
-    const legsData = data.filter((piece) => piece.kind === "legs");
+    const helmetData = armorData.filter((piece) => piece.kind === "head");
+    const chestData = armorData.filter((piece) => piece.kind === "chest");
+    const armsData = armorData.filter((piece) => piece.kind === "arms");
+    const waistData = armorData.filter((piece) => piece.kind === "waist");
+    const legsData = armorData.filter((piece) => piece.kind === "legs");
 
     // console.log(data);
 

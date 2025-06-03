@@ -1,51 +1,45 @@
 /** @format */
 import { type ArmorObject } from "../types/types";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { useState } from "react";
+import GearPiece from "./GearPiece";
+import GearPieceModal from "./GearPieceModal";
 
 const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
+    const [selectedGear, setSelectedGear] = useState<ArmorObject>(gearData[39]);
+    const [open, setOpen] = useState(false);
+
     if (!gearData || gearData.length === 0) {
         return null;
     }
 
-    const gearPiece = gearData[50];
-    console.log("name", gearData[50]);
-    console.log("test", gearPiece.kind);
+    const handleUpdate = (newGear: ArmorObject) => {
+        setSelectedGear(newGear);
+        setOpen(false);
+    };
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <div className="w-100 h-20 bg-gray-700 rounded-md flex justify-between items-center p-2 hover:bg-gray-600 cursor-pointer">
-                    <div className="flex w-1/2 h-full justify-between items-center">
-                        <div>
-                            <Image
-                                src={`/images/${gearPiece.kind}.webp`}
-                                width={50}
-                                height={50}
-                                alt="test"
-                            />
-                        </div>
-                        <div className="text-center">
-                            <div className="font-bold text-gray-300">{gearPiece.name}</div>
-                            {gearPiece.skills.map((skill) => {
-                                return (
-                                    <div
-                                        className="text-gray-400"
-                                        key={skill.id}>
-                                        {skill.skill.name} {skill.level}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                    <div className="text-gray-300">X</div>
-                </div>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger>
+                <GearPiece gearPiece={selectedGear} />
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="!max-w-[1000px]">
                 <DialogHeader>
-                    <DialogTitle>Tester</DialogTitle>
+                    <DialogTitle>Item Search</DialogTitle>
                 </DialogHeader>
-                <DialogDescription></DialogDescription>
+                {/* This will have a list of gear items available to select. First need to make it so that state updates when I pick a new gear piece */}
+                <DialogDescription asChild>
+                    <div className="h-[1000px] overflow-scroll flex flex-col gap-2">
+                        {gearData.map((piece: ArmorObject, index) => {
+                            return (
+                                <GearPieceModal
+                                    gearPiece={piece}
+                                    key={index}
+                                    handleUpdate={() => handleUpdate(piece)}
+                                />
+                            );
+                        })}
+                    </div>
+                </DialogDescription>
             </DialogContent>
         </Dialog>
     );
