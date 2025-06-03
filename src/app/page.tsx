@@ -2,10 +2,10 @@
 "use client";
 
 import { fetchAllArmor } from "./api/fetchAllArmor";
+import { fetchAllWeapons } from "./api/fetchAllWeapons";
 import { useQuery } from "@tanstack/react-query";
 import GearSlot from "./components/GearSlot";
 import WeaponSlot from "./components/WeaponSlot";
-import axios from "axios";
 
 export default function LandingPage() {
     const { data: armorData } = useQuery({
@@ -15,10 +15,7 @@ export default function LandingPage() {
 
     const { data: weaponData } = useQuery({
         queryKey: ["weapons"],
-        queryFn: async () => {
-            const { data } = await axios.get("https://wilds.mhdb.io/en/weapons");
-            return data;
-        },
+        queryFn: fetchAllWeapons,
     });
 
     if (!armorData || !weaponData) {

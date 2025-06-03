@@ -1,22 +1,25 @@
 /** @format */
 import Image from "next/image";
+import SharpnessGuage from "../components/SharpnessGuage";
+import { type WeaponObject } from "../types/types";
 
-const WeaponPiece = ({ gearPiece }) => {
-    const sharpnessColors = [
-        { color: "red", value: gearPiece.sharpness["red"] || 0 },
-        { color: "orange", value: gearPiece.sharpness["orange"] || 0 },
-        { color: "yellow", value: gearPiece.sharpness["yellow"] || 0 },
-        { color: "green", value: gearPiece.sharpness["green"] || 0 },
-        { color: "blue", value: gearPiece.sharpness["blue"] || 0 },
-        { color: "white", value: gearPiece.sharpness["white"] || 0 },
-        { color: "purple", value: gearPiece.sharpness["purple"] || 0 },
-    ];
+const WeaponPiece = ({ gearPiece }: { gearPiece: WeaponObject }) => {
+    if (!gearPiece) {
+        return null;
+    }
 
     return (
         <div className="flex gap-2">
             <div className="w-100 h-28 bg-gray-700 rounded-md flex justify-between items-center p-2 hover:bg-gray-600 cursor-pointer">
                 <div className="flex w-3/4 h-full justify-between items-center">
-                    <div className="w-1/4 flex justify-center"></div>
+                    <div className="w-1/4 flex justify-center">
+                        <Image
+                            src={`/images/weapons/${gearPiece.kind}.webp`}
+                            width={50}
+                            height={50}
+                            alt="test"
+                        />
+                    </div>
                     <div className="text-center w-full h-full">
                         <div className="font-bold text-gray-300">{gearPiece.name}</div>
                         <div className="gap-2 flex justify-center text-gray-400">
@@ -24,19 +27,7 @@ const WeaponPiece = ({ gearPiece }) => {
                             <div>Affinity</div>
                         </div>
 
-                        <div className="flex justify-center border-2">
-                            <div className="border-l-2"></div>
-                            {sharpnessColors.map((ele) => {
-                                return (
-                                    <div
-                                        key={ele.color}
-                                        className={`w-[${(ele.value / 400) * 100}px] h-5 bg-${ele.color}-500 border-t-2 border-b-2`}>
-                                        a
-                                    </div>
-                                );
-                            })}
-                            <div className="border-r-2"></div>
-                        </div>
+                        {gearPiece.sharpness && <SharpnessGuage gearPiece={gearPiece} />}
                     </div>
                 </div>
                 <div className="text-gray-300 h-full">X</div>

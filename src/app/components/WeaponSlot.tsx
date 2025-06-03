@@ -3,17 +3,19 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import WeaponPiece from "./WeaponPiece";
+import { type WeaponObject } from "../types/types";
 import WeaponPieceModal from "./WeaponPieceModal";
 
-const WeaponSlot = ({ gearData }) => {
-    const [selectedGear, setSelectedGear] = useState(gearData.find((weapon) => weapon.id === 200) || null);
+const WeaponSlot = ({ gearData }: { gearData: WeaponObject[] }) => {
+    const [selectedGear, setSelectedGear] = useState<WeaponObject>(gearData.find((weapon) => weapon.id === 200)!);
     const [open, setOpen] = useState(false);
 
     if (!gearData || gearData.length === 0) {
         return null;
     }
 
-    const handleUpdate = (newGear) => {
+    const handleUpdate = (newGear: WeaponObject) : void => {
+        console.log(newGear);
         setSelectedGear(newGear);
         setOpen(false);
     };

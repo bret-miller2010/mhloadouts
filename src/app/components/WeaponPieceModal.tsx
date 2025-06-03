@@ -1,9 +1,9 @@
 /** @format */
 
 import Image from "next/image";
+import { type WeaponObject } from "../types/types";
 
-const WeaponPieceModal = ({ gearPiece, handleUpdate }) => {
-
+const WeaponPieceModal = ({ gearPiece, handleUpdate }: { gearPiece: WeaponObject; handleUpdate: () => void }) => {
     return (
         <div className="flex gap-2">
             <div
