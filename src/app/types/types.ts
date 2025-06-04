@@ -128,3 +128,10 @@ interface WeaponSkills {
     description: string;
     id: number;
 }
+
+export type SharpnessObject = {
+    color: SharpnessColor;
+    value: number;
+};
+
+export type SharpnessColor = "red" | "orange" | "yellow" | "green" | "blue" | "white" | "purple";
