@@ -6,6 +6,8 @@ import { fetchAllWeapons } from "./api/fetchAllWeapons";
 import { useQuery } from "@tanstack/react-query";
 import GearSlot from "./components/GearSlot";
 import WeaponSlot from "./components/WeaponSlot";
+import GearLoadoutWrapper from "./components/GearLoadoutWrapper";
+import LeftSkillList from "./components/LeftSkillList";
 
 export default function LandingPage() {
     const { data: armorData } = useQuery({
@@ -29,13 +31,16 @@ export default function LandingPage() {
     const legsData = armorData.filter((piece) => piece.kind === "legs");
 
     return (
-        <div className="w-screen h-screen flex justify-content flex-col items-center gap-2 mt-20 p-2">
-            <WeaponSlot gearData={weaponData} />
-            <GearSlot gearData={helmetData} />
-            <GearSlot gearData={chestData} />
-            <GearSlot gearData={armsData} />
-            <GearSlot gearData={waistData} />
-            <GearSlot gearData={legsData} />
+        <div className="w-screen h-screen flex justify-center bg-gray-200 border-2">
+            <LeftSkillList />
+            <GearLoadoutWrapper>
+                <WeaponSlot gearData={weaponData} />
+                <GearSlot gearData={helmetData} />
+                <GearSlot gearData={chestData} />
+                <GearSlot gearData={armsData} />
+                <GearSlot gearData={waistData} />
+                <GearSlot gearData={legsData} />
+            </GearLoadoutWrapper>
         </div>
     );
 }

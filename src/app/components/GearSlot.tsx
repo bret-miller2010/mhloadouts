@@ -4,10 +4,13 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useState } from "react";
 import GearPiece from "./GearPiece";
 import GearPieceModal from "./GearPieceModal";
+import { useSkillStore } from "@/stores/skill";
+import { type ArmorSkills } from "@/stores/skill/types";
 
 const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
     const [selectedGear, setSelectedGear] = useState<ArmorObject>(gearData[39]);
     const [open, setOpen] = useState(false);
+    const { updateArmorPieceSkills } = useSkillStore((state) => state);
 
     if (!gearData || gearData.length === 0) {
         return null;
@@ -15,10 +18,22 @@ const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
 
     const handleUpdate = (newGear: ArmorObject) => {
         setSelectedGear(newGear);
+        const newSkills = newGear.skills.map((skill) => {
+            return {
+                name: skill.skill.name,
+                level: skill.level,
+            };
+        });
+        // const gearUpdate: ArmorSkills = {
+        //     [newGear["kind"]]: newSkills,
+        // };
+        updateArmorPieceSkills(newGear.kind, newSkills);
         setOpen(false);
     };
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+            open={open}
+            onOpenChange={setOpen}>
             <DialogTrigger>
                 <GearPiece gearPiece={selectedGear} />
             </DialogTrigger>
@@ -26,7 +41,6 @@ const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
                 <DialogHeader>
                     <DialogTitle>Item Search</DialogTitle>
                 </DialogHeader>
-                {/* This will have a list of gear items available to select. First need to make it so that state updates when I pick a new gear piece */}
                 <DialogDescription asChild>
                     <div className="h-[1000px] overflow-scroll flex flex-col gap-2">
                         {gearData.map((piece: ArmorObject, index) => {

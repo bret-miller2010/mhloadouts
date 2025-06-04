@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArmorObject } from "../types/types";
 
 const GearPiece = ({ gearPiece }: { gearPiece: ArmorObject }) => {
+
     return (
         <div className="flex gap-2">
             <div className="w-100 h-28 bg-gray-700 rounded-md flex justify-between items-center p-2 hover:bg-gray-600 cursor-pointer">
