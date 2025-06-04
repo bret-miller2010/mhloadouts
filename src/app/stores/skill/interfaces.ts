@@ -1,13 +1,13 @@
 /** @format */
 
-import type { Skill, ArmorSkills, ArmorPiece } from "./types";
+import type { ArmorSkills } from "./types";
 
 type SkillState = {
     skills: ArmorSkills;
 };
 
 type SkillActions = {
-    updateArmorPieceSkills: (piece: ArmorPiece, newSkills: Skill[]) => void;
+    updateArmorPieceSkills: (gearPiece: Partial<ArmorSkills>) => void;
     clearSkills: () => void;
 };
 

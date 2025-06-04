@@ -31,7 +31,7 @@ export default function LandingPage() {
     const legsData = armorData.filter((piece) => piece.kind === "legs");
 
     return (
-        <div className="w-screen h-screen flex justify-center bg-gray-200 border-2">
+        <div className="w-screen h-screen flex justify-center bg-gray-200 border-2 gap-2">
             <LeftSkillList />
             <GearLoadoutWrapper>
                 <WeaponSlot gearData={weaponData} />

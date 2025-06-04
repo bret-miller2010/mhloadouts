@@ -5,7 +5,7 @@ import { useState } from "react";
 import GearPiece from "./GearPiece";
 import GearPieceModal from "./GearPieceModal";
 import { useSkillStore } from "@/stores/skill";
-import { type ArmorSkills } from "@/stores/skill/types";
+import { type ArmorSkills, type ArmorPiece } from "@/stores/skill/types";
 
 const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
     const [selectedGear, setSelectedGear] = useState<ArmorObject>(gearData[39]);
@@ -24,10 +24,10 @@ const GearSlot = ({ gearData }: { gearData: ArmorObject[] }) => {
                 level: skill.level,
             };
         });
-        // const gearUpdate: ArmorSkills = {
-        //     [newGear["kind"]]: newSkills,
-        // };
-        updateArmorPieceSkills(newGear.kind, newSkills);
+        const gearUpdate: Partial<ArmorSkills> = {
+            [newGear.kind as ArmorPiece]: newSkills,
+        };
+        updateArmorPieceSkills(gearUpdate);
         setOpen(false);
     };
     return (

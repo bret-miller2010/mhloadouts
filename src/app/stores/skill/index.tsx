@@ -16,11 +16,11 @@ export const useSkillStore = create<SkillStore>()(
                 legs: [],
             } as ArmorSkills,
 
-            updateArmorPieceSkills: (piece, newSkills) =>
+            updateArmorPieceSkills: (gearPiece: Partial<ArmorSkills>) =>
                 set((state) => ({
                     skills: {
                         ...state.skills,
-                        [piece]: newSkills,
+                        ...gearPiece,
                     },
                 })),
 

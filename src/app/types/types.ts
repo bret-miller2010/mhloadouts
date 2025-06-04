@@ -1,5 +1,4 @@
 /** @format */
-
 export interface ArmorObject {
     kind: "head" | "chest" | "arms" | "waist" | "legs";
     name: string;
